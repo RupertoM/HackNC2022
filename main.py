@@ -35,13 +35,13 @@ BG_IMAGE = pygame.image.load(os.path.join('assets', 'background.png')).convert()
 SCALE_FACTOR = WINDOW_HEIGHT / (BG_IMAGE.get_height())
 TRUE_HEIGHT = BG_IMAGE.get_height() * (SCALE_FACTOR)
 TRUE_WIDTH = BG_IMAGE.get_width() * SCALE_FACTOR
-BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 3)), 0)
+BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 8)), 0)
 BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT)), 0)
 
 def bird_handle_movement(keys_pressed, direction):
-    if keys_pressed[pygame.K_a] and direction > -4:  # LEFT
+    if keys_pressed[pygame.K_LEFT] and direction > -4:  # LEFT
         direction -= 1
-    elif keys_pressed[pygame.K_d] and direction < 4: # RIGHT
+    elif keys_pressed[pygame.K_RIGHT] and direction < 4: # RIGHT
         direction += 1
     return direction
 
