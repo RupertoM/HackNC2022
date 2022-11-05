@@ -1,14 +1,16 @@
-import pygame
 import os
+
+import pygame
+
 import tilt
+from settings import *
 
 pygame.font.init()
 pygame.mixer.init()
 
 
 # Window Properties
-WIDTH, HEIGHT = 225, 400
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+WIN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Learn to Fly!")
 
 # Movement Properties
@@ -20,9 +22,6 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
-
-# PYGAME FPS
-FPS = 30
 
 # Assets ------------------
 # Bird Sprite Properties
@@ -50,9 +49,9 @@ BIRD_DOWN = pygame.image.load(os.path.join('assets','Bird_Down.png'))
 BIRD_DOWN = pygame.transform.rotate(pygame.transform.scale(BIRD_DOWN, (BIRD_WIDTH, BIRD_HEIGHT)), 0)
 
 # Wall Sprite Properties
-WALLS_WIDTH, WALLS_HEIGHT = WIDTH, HEIGHT
+WALLS_WIDTH, WALLS_HEIGHT = WINDOW_WIDTH, WINDOW_HEIGHT
 WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
-WALLS_REPEAT_INITIAL_Y = HEIGHT
+WALLS_REPEAT_INITIAL_Y = WINDOW_HEIGHT
 # Wall Sprite
 SCROLLING_WALL = pygame.image.load(os.path.join('assets', 'Scrolling Walls.png'))
 SCROLLING_WALL = pygame.transform.rotate(pygame.transform.scale(SCROLLING_WALL, (WALLS_WIDTH, WALLS_HEIGHT)), 0)
