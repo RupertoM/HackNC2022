@@ -49,6 +49,7 @@ def draw_window(walls,walls_repeat,birdRect,Bird):
     WIN.fill(WHITE)
     WIN.blit(SCROLLING_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
     WIN.blit(SCROLLING_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
+    
     if direction == -4:
         WIN.blit(Bird.left_4,(birdRect.x,Bird.y))
     elif direction == -3:
@@ -74,6 +75,7 @@ def main():
     global direction
     walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, WALLS_WIDTH, WALLS_HEIGHT)
     walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , WALLS_WIDTH, WALLS_HEIGHT)
+    
     #Declare bird object
     BirdC = Bird(112,40)
     birdRect = pygame.Rect(BirdC.x, BirdC.y, BirdC.width, BirdC.height)
