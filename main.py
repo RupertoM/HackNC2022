@@ -4,6 +4,7 @@ import pygame
 
 import tilt
 from Bird import Bird
+from Score import Score
 from settings import *
 
 pygame.font.init()
@@ -25,6 +26,8 @@ RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
 # Assets ------------------
+# Score
+Score_Obj = Score(BLACK, 100)
 
 # Wall Sprite Properties
 WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
@@ -69,7 +72,9 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
         WIN.blit(Bird.right_3,(birdRect.x,Bird.y))
     elif direction == 4:
         WIN.blit(Bird.right_4,(birdRect.x,Bird.y))
-        
+    WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2,15))
+
+
     pygame.display.update()
 
 def main():
@@ -78,7 +83,7 @@ def main():
     walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , TRUE_WIDTH, TRUE_HEIGHT)
     
     #Declare bird object
-    BirdC = Bird((TRUE_WIDTH / 2.5),(TRUE_HEIGHT / 30))
+    BirdC = Bird((TRUE_WIDTH / 2.5),(TRUE_HEIGHT / 10))
     birdRect = pygame.Rect(BirdC.x, BirdC.y, BirdC.width, BirdC.height)
 
     v_vel = STARTING_VARY_VELOCITY
