@@ -3,7 +3,7 @@ import os
 import pygame
 
 import tilt
-from BirdClass import Bird
+from Bird import Bird
 from settings import *
 
 pygame.font.init()
@@ -32,9 +32,10 @@ WALLS_REPEAT_INITIAL_Y = WINDOW_HEIGHT
 
 # Wall Sprite
 BG_IMAGE = pygame.image.load(os.path.join('assets', 'background.png')).convert()
-SCALE_FACTOR = WINDOW_HEIGHT / (BG_IMAGE.get_height())
-TRUE_HEIGHT = BG_IMAGE.get_height() * (SCALE_FACTOR)
-TRUE_WIDTH = BG_IMAGE.get_width() * SCALE_FACTOR
+HEIGHT_SF = WINDOW_HEIGHT / (BG_IMAGE.get_height())
+WIDTH_SF = WINDOW_WIDTH / (BG_IMAGE.get_width())
+TRUE_HEIGHT = BG_IMAGE.get_height() * (HEIGHT_SF)
+TRUE_WIDTH = BG_IMAGE.get_width() * WIDTH_SF
 BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 8)), 0)
 BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT)), 0)
 
@@ -77,7 +78,7 @@ def main():
     walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , TRUE_WIDTH, TRUE_HEIGHT)
     
     #Declare bird object
-    BirdC = Bird(112,40)
+    BirdC = Bird((TRUE_WIDTH / 2.5),(TRUE_HEIGHT / 30))
     birdRect = pygame.Rect(BirdC.x, BirdC.y, BirdC.width, BirdC.height)
 
     v_vel = STARTING_VARY_VELOCITY
