@@ -4,7 +4,6 @@ import pygame
 
 import tilt
 from BirdClass import Bird
-
 from settings import *
 
 pygame.font.init()
@@ -26,16 +25,18 @@ RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
 # Assets ------------------
-# Bird Sprite Properties
 
 # Wall Sprite Properties
-WALLS_WIDTH, WALLS_HEIGHT = WINDOW_WIDTH, WINDOW_HEIGHT
 WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
 WALLS_REPEAT_INITIAL_Y = WINDOW_HEIGHT
+
 # Wall Sprite
-SCROLLING_WALL = pygame.image.load(os.path.join('assets', 'Scrolling Walls.png'))
-SCROLLING_WALL = pygame.transform.rotate(pygame.transform.scale(SCROLLING_WALL, (WALLS_WIDTH, WALLS_HEIGHT)), 0)
-SCROLLING_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(SCROLLING_WALL, (WALLS_WIDTH, WALLS_HEIGHT)), 0)
+BG_IMAGE = pygame.image.load(os.path.join('assets', 'background.png')).convert()
+SCALE_FACTOR = WINDOW_HEIGHT / (BG_IMAGE.get_height())
+TRUE_HEIGHT = BG_IMAGE.get_height() * (SCALE_FACTOR)
+TRUE_WIDTH = BG_IMAGE.get_width() * SCALE_FACTOR
+BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 3)), 0)
+BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT)), 0)
 
 def bird_handle_movement(keys_pressed, direction):
     if keys_pressed[pygame.K_a] and direction > -4:  # LEFT
@@ -44,11 +45,10 @@ def bird_handle_movement(keys_pressed, direction):
         direction += 1
     return direction
 
-
-def draw_window(walls,walls_repeat,birdRect,Bird):
+def draw_window(walls,walls_repeat,birdRect, Bird):
     WIN.fill(WHITE)
-    WIN.blit(SCROLLING_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
-    WIN.blit(SCROLLING_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
+    WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
+    WIN.blit(BG_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
     
     if direction == -4:
         WIN.blit(Bird.left_4,(birdRect.x,Bird.y))
@@ -73,8 +73,8 @@ def draw_window(walls,walls_repeat,birdRect,Bird):
 
 def main():
     global direction
-    walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, WALLS_WIDTH, WALLS_HEIGHT)
-    walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , WALLS_WIDTH, WALLS_HEIGHT)
+    walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, TRUE_WIDTH, TRUE_HEIGHT)
+    walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , TRUE_WIDTH, TRUE_HEIGHT)
     
     #Declare bird object
     BirdC = Bird(112,40)
@@ -92,7 +92,7 @@ def main():
         keys_pressed = pygame.key.get_pressed()
         
         direction = bird_handle_movement(keys_pressed, direction)
-        tilt.moving(direction,v_vel,walls,walls_repeat,WALLS_HEIGHT,birdRect)
+        tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT,birdRect)
         
         draw_window(walls,walls_repeat,birdRect,BirdC)
         
