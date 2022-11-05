@@ -1,5 +1,7 @@
 import os
+
 import pygame
+
 from settings import *
 
 # WIN.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))

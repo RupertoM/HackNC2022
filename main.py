@@ -77,6 +77,19 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
     elif direction == 4:
         WIN.blit(Bird.right_4,(birdRect.x,Bird.y))
         
+    #collision with wall state
+    if birdRect.colliderect(L_side) or birdRect.colliderect(R_side):
+        #pygame.draw.rect(WIN, (100,200,0), L_side)
+        #pygame.draw.rect(WIN, (100,200,0), R_side)
+        print("fail state")
+        pygame.quit()
+    #else:
+        #pygame.draw.rect(WIN, (200,20,0), L_side)
+        #pygame.draw.rect(WIN, (200,20,0), R_side)
+
+    #Score Render
+    WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2,15))
+
     pygame.display.update()
 
 def main():
