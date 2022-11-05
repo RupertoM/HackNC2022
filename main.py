@@ -42,6 +42,10 @@ TRUE_WIDTH = BG_IMAGE.get_width() * WIDTH_SF
 BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0)
 BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0)
 
+#Collision Rects for sides
+L_side = pygame.Rect(0, 0, 1, WINDOW_HEIGHT)
+R_side = pygame.Rect(WINDOW_WIDTH - 1,0,1,WINDOW_HEIGHT)
+
 def bird_handle_movement(keys_pressed, direction):
     if keys_pressed[pygame.K_LEFT] and direction > -4:  # LEFT
         direction -= 1
@@ -72,9 +76,7 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
         WIN.blit(Bird.right_3,(birdRect.x,Bird.y))
     elif direction == 4:
         WIN.blit(Bird.right_4,(birdRect.x,Bird.y))
-    WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2,15))
-
-
+        
     pygame.display.update()
 
 def main():
@@ -95,6 +97,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                
         keys_pressed = pygame.key.get_pressed()
         
         direction = bird_handle_movement(keys_pressed, direction)
