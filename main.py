@@ -39,6 +39,7 @@ TRUE_WIDTH = BG_IMAGE.get_width() * WIDTH_SF
 BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0)
 BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0)
 
+#Collision Rects for sides
 L_side = pygame.Rect(0, 0, 1, WINDOW_HEIGHT)
 R_side = pygame.Rect(WINDOW_WIDTH - 1,0,1,WINDOW_HEIGHT)
 
@@ -102,6 +103,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                
         keys_pressed = pygame.key.get_pressed()
         
         direction = bird_handle_movement(keys_pressed, direction)
