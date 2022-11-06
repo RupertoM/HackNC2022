@@ -201,8 +201,6 @@ def main():
         if obstacles[i].y < 140:
             i += 1
             Score_Obj.increment()
-
-        print(obstacles[i].y)
         
         draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj, obstacles)
         
