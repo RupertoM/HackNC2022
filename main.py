@@ -106,12 +106,12 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
         flip = (not flip)
 
         if birdRect.colliderect(obstacle):
-            restart_game()
+            restart_game(Score_Obj)
             
 
     #collision with wall state
     if birdRect.colliderect(L_side) or birdRect.colliderect(R_side):
-        restart_game()
+        restart_game(Score_Obj)
     #else:
         #pygame.draw.rect(WIN, (200,20,0), L_side)
         #pygame.draw.rect(WIN, (200,20,0), R_side)
@@ -126,15 +126,18 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
 
     pygame.display.update()
 
-def restart_game():
+def restart_game(scoreObj):
     global game_over
     game_over = True
     endgame_font = pygame.font.SysFont("arial", 60)
+    score_font = pygame.font.SysFont("arial", 40)
     restart_font = pygame.font.SysFont("arial", 20)
-    #pygame.draw.rect(WIN, (100,200,0), L_side)
-    #pygame.draw.rect(WIN, (100,200,0), R_side)
     GAME_OVER_TEXT = endgame_font.render("GAME OVER", True, BLACK, None)
     WIN.blit(GAME_OVER_TEXT, (WINDOW_WIDTH/2 - 170, WINDOW_HEIGHT/4))
+    score = scoreObj.get_score()
+    score_string = str(score)
+    YOUR_SCORE_TEXT = score_font.render(("YOUR SCORE: " + score_string), True, BLACK, None)
+    WIN.blit(YOUR_SCORE_TEXT, (WINDOW_WIDTH/2 - 145, WINDOW_HEIGHT/2.6))
     RESTART_TEXT = restart_font.render("PRESS SPACE TO TRY AGAIN", True, BLACK, None)
     WIN.blit(RESTART_TEXT, (WINDOW_WIDTH/2 - 130, WINDOW_HEIGHT/2))
 
