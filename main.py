@@ -4,9 +4,13 @@ import pygame
 
 import tilt
 import Wall
+import highscore
 from Bird import Bird
 from Score import Score
 from settings import *
+import csv
+
+
 
 pygame.font.init()
 pygame.mixer.init()
@@ -34,8 +38,8 @@ YELLOW = (255, 255, 0)
 SKY_BLUE = (135,206,235)
 
 # Assets ------------------
-# Score
-score_val = 0
+# High Score
+
 
 # Wall Sprite Properties
 WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
@@ -53,6 +57,7 @@ BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_
 #Collision Rects for sides
 L_side = pygame.Rect(0, 0, 1, WINDOW_HEIGHT)
 R_side = pygame.Rect(WINDOW_WIDTH - 1,0,1,WINDOW_HEIGHT)
+
 
 def bird_handle_movement(keys_pressed, direction,Score_Obj):
     if keys_pressed[pygame.K_LEFT] and direction > -4:  # LEFT
@@ -116,6 +121,11 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
     #Score Render
     WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2 - 35,15))
 
+    #Highscore Render
+    highscore_font = pygame.font.SysFont('comicsans', 20)
+    highscore_text = highscore_font.render("Highscore: " + str(highscore.get_highscore()), 1, YELLOW)
+    WIN.blit(highscore_text, (0, 10))
+
     pygame.display.update()
 
 def restart_game():
@@ -167,6 +177,7 @@ def main():
     birdRect = pygame.Rect(BirdC.x, BirdC.y, BirdC.width, BirdC.height)
 
     v_vel = STARTING_VARY_VELOCITY
+    score_val = 0
     Score_Obj = Score(BLACK, score_val)
 
     clock = pygame.time.Clock()
@@ -182,7 +193,7 @@ def main():
 
         direction, Score_Obj = bird_handle_movement(keys_pressed, direction,Score_Obj)
         v_vel = 1 + Score_Obj.get_score() / 20
-
+        highscore.set_highscore(Score_Obj.get_score())
         tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT, birdRect, obstacles)
         
         draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj, obstacles)
