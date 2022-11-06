@@ -92,11 +92,11 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
 
     for obstacle in obs:
         if flip:
-            pygame.draw.rect(WIN, (0,0,0), obstacle)
+            #pygame.draw.rect(WIN, (0,0,0), obstacle) #draw hitbox
             left_tree = pygame.transform.scale(tree_obs, (350,80))
             WIN.blit(left_tree, (obstacle.x, obstacle.y-15))
         else:
-            pygame.draw.rect(WIN, (0,0,0), obstacle)
+            #pygame.draw.rect(WIN, (0,0,0), obstacle)
             right_tree_flip = pygame.transform.flip(tree_obs, True, False)
             right_tree = pygame.transform.scale(right_tree_flip, (350,80))
             WIN.blit(right_tree, (obstacle.x-30, obstacle.y-15))
