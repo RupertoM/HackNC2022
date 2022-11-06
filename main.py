@@ -88,7 +88,7 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
 
     for obstacle in obs:
         if birdRect.colliderect(obstacle):
-            pygame.draw.rect(WIN, (200,80,0), obstacle)
+            restart_game()
         else: 
             pygame.draw.rect(WIN, (100,200,0), obstacle)
 
