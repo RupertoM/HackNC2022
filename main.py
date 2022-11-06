@@ -101,6 +101,41 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
 
     pygame.display.update()
 
+    def restart_game():
+        global game_over
+        game_over = True
+        endgame_font = pygame.font.SysFont("arial", 60)
+        restart_font = pygame.font.SysFont("arial", 20)
+        #pygame.draw.rect(WIN, (100,200,0), L_side)
+        #pygame.draw.rect(WIN, (100,200,0), R_side)
+        GAME_OVER_TEXT = endgame_font.render("GAME OVER", True, BLACK, None)
+        WIN.blit(GAME_OVER_TEXT, (WINDOW_WIDTH/2 - 170, WINDOW_HEIGHT/4))
+        RESTART_TEXT = restart_font.render("PRESS SPACE TO TRY AGAIN", True, BLACK, None)
+        WIN.blit(RESTART_TEXT, (WINDOW_WIDTH/2 - 130, WINDOW_HEIGHT/2))
+
+
+        pygame.display.update()
+
+        stop_game()
+
+
+    def unstop_game():
+        global game_over
+        game_over = False
+
+    def stop_game():
+        global game_over
+        while  game_over == True:
+                for event in pygame.event.get():
+                #print(event)
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        quit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            unstop_game()
+                            main()
+
 def main():
     global direction
     walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, TRUE_WIDTH, TRUE_HEIGHT)
