@@ -7,10 +7,9 @@ import Wall
 import highscore
 from Bird import Bird
 from Score import Score
+from Sound import Sound
 from settings import *
 import csv
-
-
 
 pygame.font.init()
 pygame.mixer.init()
@@ -38,8 +37,10 @@ YELLOW = (255, 255, 0)
 SKY_BLUE = (135,206,235)
 
 # Assets ------------------
-# High Score
 
+# Sound Effects
+DING_SOUND = Sound(os.path.join('assets','ding.mp3'))
+SQUAK_SOUND = Sound(os.path.join('assets','squak.wav'))
 
 # Wall Sprite Properties
 WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
@@ -64,6 +65,8 @@ def bird_handle_movement(keys_pressed, direction,Score_Obj):
         direction -= 1
     elif keys_pressed[pygame.K_RIGHT] and direction < 4: # RIGHT
         direction += 1
+    elif keys_pressed[pygame.K_c] and direction < 4: # RIGHT
+        SQUAK_SOUND.playChannel(1)
     return direction,Score_Obj
 
 def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
@@ -186,7 +189,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-        
+
 
         keys_pressed = pygame.key.get_pressed()
 
@@ -199,6 +202,7 @@ def main():
         if obstacles[i].y < 140:
             i += 1
             Score_Obj.increment()
+            DING_SOUND.playChannel(0)
         
         draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj, obstacles)
         
