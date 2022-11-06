@@ -5,12 +5,12 @@ from settings import *
 class Score():
     def __init__(self, color, value):
         self.score = value
-        SCORE_FONT = pygame.font.SysFont('comicsans', 40)
+        SCORE_FONT = pygame.font.SysFont('impact', 40)
         self.score_sprite = SCORE_FONT.render(three_digit(self.score), 1, color)
 
     def increment(self):
         self.score += 1
-        SCORE_FONT = pygame.font.SysFont('comicsans', 40)
+        SCORE_FONT = pygame.font.SysFont('impact', 40)
         self.score_sprite = SCORE_FONT.render(three_digit(self.score), 1, (0,0,0))
     def get_score(self):
         return self.score
