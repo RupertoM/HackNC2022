@@ -1,15 +1,18 @@
+import csv
 import os
 
 import pygame
 
+import highscore
 import tilt
 import Wall
-import highscore
 from Bird import Bird
 from Score import Score
 from Sound import Sound
 from settings import *
 import csv
+
+
 
 pygame.font.init()
 pygame.mixer.init()
@@ -23,7 +26,7 @@ game_over = False
 
 # Window Properties
 WIN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Learn to Fly!")
+pygame.display.set_caption("Learn to Fly")
 
 # Movement Properties
 STARTING_VARY_VELOCITY = 1
@@ -109,12 +112,12 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
         flip = (not flip)
 
         if birdRect.colliderect(obstacle):
-            restart_game()
+            restart_game(Score_Obj)
             
 
     #collision with wall state
     if birdRect.colliderect(L_side) or birdRect.colliderect(R_side):
-        restart_game()
+        restart_game(Score_Obj)
     #else:
         #pygame.draw.rect(WIN, (200,20,0), L_side)
         #pygame.draw.rect(WIN, (200,20,0), R_side)
@@ -123,23 +126,26 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
     WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2 - 35,15))
 
     #Highscore Render
-    highscore_font = pygame.font.SysFont('comicsans', 20)
+    highscore_font = pygame.font.SysFont('impact', 20)
     highscore_text = highscore_font.render("Highscore: " + str(highscore.get_highscore()), 1, YELLOW)
-    WIN.blit(highscore_text, (0, 10))
+    WIN.blit(highscore_text, (10, 10))
 
     pygame.display.update()
 
-def restart_game():
+def restart_game(scoreObj):
     global game_over
     game_over = True
-    endgame_font = pygame.font.SysFont("arial", 60)
-    restart_font = pygame.font.SysFont("arial", 20)
-    #pygame.draw.rect(WIN, (100,200,0), L_side)
-    #pygame.draw.rect(WIN, (100,200,0), R_side)
+    endgame_font = pygame.font.SysFont("impact", 60)
+    score_font = pygame.font.SysFont("impact", 40)
+    restart_font = pygame.font.SysFont("impact", 20)
     GAME_OVER_TEXT = endgame_font.render("GAME OVER", True, BLACK, None)
-    WIN.blit(GAME_OVER_TEXT, (WINDOW_WIDTH/2 - 170, WINDOW_HEIGHT/4))
+    WIN.blit(GAME_OVER_TEXT, (WINDOW_WIDTH/2 - 133, WINDOW_HEIGHT/4))
+    score = scoreObj.get_score()
+    score_string = str(score)
+    YOUR_SCORE_TEXT = score_font.render(("YOUR SCORE: " + score_string), True, BLACK, None)
+    WIN.blit(YOUR_SCORE_TEXT, (WINDOW_WIDTH/2 - 118, WINDOW_HEIGHT/2.6))
     RESTART_TEXT = restart_font.render("PRESS SPACE TO TRY AGAIN", True, BLACK, None)
-    WIN.blit(RESTART_TEXT, (WINDOW_WIDTH/2 - 130, WINDOW_HEIGHT/2))
+    WIN.blit(RESTART_TEXT, (WINDOW_WIDTH/2 - 105, WINDOW_HEIGHT/2))
 
 
     pygame.display.update()
