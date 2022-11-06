@@ -31,6 +31,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
+SKY_BLUE = (135,206,235)
 
 # Assets ------------------
 # Score
@@ -41,7 +42,7 @@ WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
 WALLS_REPEAT_INITIAL_Y = WINDOW_HEIGHT
 
 # Wall Sprite
-BG_IMAGE = pygame.image.load(os.path.join('assets', 'background.png')).convert()
+BG_IMAGE = pygame.image.load(os.path.join('assets', 'background.png'))
 HEIGHT_SF = WINDOW_HEIGHT / (BG_IMAGE.get_height())
 WIDTH_SF = WINDOW_WIDTH / (BG_IMAGE.get_width())
 TRUE_HEIGHT = BG_IMAGE.get_height() * (HEIGHT_SF)
@@ -63,9 +64,9 @@ def bird_handle_movement(keys_pressed, direction,Score_Obj):
     return direction,Score_Obj
 
 def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
-    WIN.fill(WHITE)
-    WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
+    WIN.fill(SKY_BLUE)
     WIN.blit(BG_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
+    WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))
     
     if direction == -4:
         WIN.blit(Bird.left_4,(birdRect.x,Bird.y))

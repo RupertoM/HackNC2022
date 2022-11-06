@@ -19,7 +19,7 @@ def obs_move_up(vert_speed, walls,walls_repeat,WALLS_HEIGHT, obstacles):
     if (walls_repeat.y <= -(WALLS_HEIGHT)):
         walls_repeat.y = WALLS_HEIGHT
     VERTICAL_SPEED = vert_speed
-    walls.y -= vert_speed
+    walls.y -= vert_speed * 1.1
     walls_repeat.y -= vert_speed
 
     for obstacle in obstacles:
