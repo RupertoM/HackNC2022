@@ -175,18 +175,18 @@ def stop_game():
                     main()
 
 def intro():
-    BT_IMAGE = pygame.image.load(os.path.join('assets', 'Bird_Tilt_3.png'))
+    BT_IMAGE = pygame.image.load(os.path.join('assets', 'First egg.png'))
     HEIGHT_SF = WINDOW_HEIGHT / (BT_IMAGE.get_height())
     WIDTH_SF = WINDOW_WIDTH / (BT_IMAGE.get_width())
-    TRUE_HEIGHT = BT_IMAGE.get_height() * (HEIGHT_SF)
-    TRUE_WIDTH = BT_IMAGE.get_width() * WIDTH_SF
+    TRUE_HEIGHT = BT_IMAGE.get_height() * (HEIGHT_SF/2)
+    TRUE_WIDTH = BT_IMAGE.get_width() * (WIDTH_SF/2)
     WIN.fill(WHITE)
     BT_WALL = pygame.transform.rotate(pygame.transform.scale(BT_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT)), 0)
-    WIN.blit(BT_WALL,(WALLS_INITIAL_X,WALLS_INITIAL_Y))
+    WIN.blit(BT_WALL,(WINDOW_WIDTH/4,WINDOW_HEIGHT/4))
 
-    intro_font = pygame.font.SysFont("impact", 20)
-    INTRO_TEXT = intro_font.render("ONCE THERE WAS AN EGG... *press space*", True, BLACK, None)
-    WIN.blit(INTRO_TEXT, (WINDOW_WIDTH/2 - 150, WINDOW_HEIGHT-50))
+    intro_font = pygame.font.SysFont("impact", 14)
+    INTRO_TEXT = intro_font.render("ONCE THERE WAS A PTERODACTYL THAT HATCHED FROM ITS EGG AND FELL OUT THE NEST... *press space*", True, BLACK, None)
+    WIN.blit(INTRO_TEXT, (WALLS_INITIAL_X+ 20, WINDOW_HEIGHT-50))
 
     pygame.display.update()
     stop_game()
