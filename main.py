@@ -56,7 +56,7 @@ WIDTH_SF = WINDOW_WIDTH / (BG_IMAGE.get_width())
 TRUE_HEIGHT = BG_IMAGE.get_height() * (HEIGHT_SF)
 TRUE_WIDTH = BG_IMAGE.get_width() * WIDTH_SF
 BG_WALL = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0)
-BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0)
+BG_WALL_REPEAT = pygame.transform.flip(pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT + 20)), 0),1,0)
 
 #Collision Rects for sides
 L_side = pygame.Rect(0, 0, 1, WINDOW_HEIGHT)
