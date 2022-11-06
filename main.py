@@ -3,6 +3,7 @@ import os
 import pygame
 
 import tilt
+import Wall
 from Bird import Bird
 from Score import Score
 from settings import *
@@ -53,7 +54,7 @@ def bird_handle_movement(keys_pressed, direction):
         direction += 1
     return direction
 
-def draw_window(walls,walls_repeat,birdRect, Bird):
+def draw_window(walls,walls_repeat,birdRect, Bird, obs):
     WIN.fill(WHITE)
     WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
     WIN.blit(BG_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
@@ -76,7 +77,13 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
         WIN.blit(Bird.right_3,(birdRect.x,Bird.y))
     elif direction == 4:
         WIN.blit(Bird.right_4,(birdRect.x,Bird.y))
-        
+
+    for obstacle in obs:
+        if birdRect.colliderect(obstacle):
+            pygame.draw.rect(WIN, (200,80,0), obstacle)
+        else: 
+            pygame.draw.rect(WIN, (100,200,0), obstacle)
+
     #collision with wall state
     if birdRect.colliderect(L_side) or birdRect.colliderect(R_side):
         #pygame.draw.rect(WIN, (100,200,0), L_side)
@@ -94,6 +101,11 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
 
 def main():
     global direction
+
+    obstacles = []
+
+    obstacles = Wall.generate_walls(obstacles)
+
     walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, TRUE_WIDTH, TRUE_HEIGHT)
     walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , TRUE_WIDTH, TRUE_HEIGHT)
     
@@ -114,9 +126,9 @@ def main():
         keys_pressed = pygame.key.get_pressed()
         
         direction = bird_handle_movement(keys_pressed, direction)
-        tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT,birdRect)
+        tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT,birdRect, obstacles)
         
-        draw_window(walls,walls_repeat,birdRect,BirdC)
+        draw_window(walls,walls_repeat,birdRect,BirdC, obstacles)
         
 
     pygame.quit()
