@@ -20,7 +20,7 @@ def generate_walls(obs): #method for generating obstacles
         obs.append(obstacle)
         obs.append(obstacle2)
 
-        local += 450
+        local += 500
         i += 1
 
     return obs
