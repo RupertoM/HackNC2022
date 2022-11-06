@@ -86,11 +86,24 @@ def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
     elif direction == 4:
         WIN.blit(Bird.right_4,(birdRect.x,Bird.y))
 
+    tree_obs = pygame.image.load(os.path.join('assets','Tree_Branch.png'))
+    flip = True
+
     for obstacle in obs:
+        if flip:
+            pygame.draw.rect(WIN, (0,0,0), obstacle)
+            left_tree = pygame.transform.scale(tree_obs, (350,80))
+            WIN.blit(left_tree, (obstacle.x, obstacle.y-15))
+        else:
+            pygame.draw.rect(WIN, (0,0,0), obstacle)
+            right_tree_flip = pygame.transform.flip(tree_obs, True, False)
+            right_tree = pygame.transform.scale(right_tree_flip, (350,80))
+            WIN.blit(right_tree, (obstacle.x-30, obstacle.y-15))
+        flip = (not flip)
+
         if birdRect.colliderect(obstacle):
             restart_game()
-        else: 
-            pygame.draw.rect(WIN, (100,200,0), obstacle)
+            
 
     #collision with wall state
     if birdRect.colliderect(L_side) or birdRect.colliderect(R_side):
