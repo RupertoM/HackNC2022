@@ -13,7 +13,7 @@ def generate_walls(obs): #method for generating obstacles
     i = 0
     local = 590
 
-    while i < 30:
+    while i < 60:
         obstacle = pygame.Rect(0,local + 600,300,1)
         obstacle2 = pygame.Rect(300,local + 850,300,1)
 
