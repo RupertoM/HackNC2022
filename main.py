@@ -65,8 +65,8 @@ def bird_handle_movement(keys_pressed, direction,Score_Obj):
 
 def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
     WIN.fill(SKY_BLUE)
-    WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
     WIN.blit(BG_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
+    WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))
     
     if direction == -4:
         WIN.blit(Bird.left_4,(birdRect.x,Bird.y))
