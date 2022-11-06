@@ -29,7 +29,7 @@ def bird_move_hor(hor_speed,bird):
     bird.x += hor_speed
 
 
-def moving(direction,vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+def moving(direction,vel,walls,walls_repeat,WALLS_HEIGHT, bird, obstacles):
     if (direction == -4):
         moving_l4(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles)
     elif (direction == -3):
@@ -51,56 +51,56 @@ def moving(direction,vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
 
     return VERTICAL_SPEED
 
-def moving_l4(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = -(HOR_SPEED_TILT4);
+def moving_l4(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = -(HOR_SPEED_TILT4) * vel
     vert_speed = VERT_SPEED_TILT4 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
 
-def moving_l3(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = -(HOR_SPEED_TILT3);
+def moving_l3(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = -(HOR_SPEED_TILT3) * vel
     vert_speed = VERT_SPEED_TILT3 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
 
-def moving_l2(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = -(HOR_SPEED_TILT2);
+def moving_l2(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = -(HOR_SPEED_TILT2) * vel
     vert_speed = VERT_SPEED_TILT2 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
 
-def moving_l1(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = -(HOR_SPEED_TILT1);
+def moving_l1(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = -(HOR_SPEED_TILT1) * vel
     vert_speed = VERT_SPEED_TILT1 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
 
 def moving_d(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
-    hor_speed = 0;
+    hor_speed = 0 * vel
     vert_speed = VERT_SPEED_DOWN * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
     
-def moving_r1(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = HOR_SPEED_TILT1;
+def moving_r1(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = HOR_SPEED_TILT1 * vel
     vert_speed = VERT_SPEED_TILT1 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
     
-def moving_r2(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = HOR_SPEED_TILT2;
+def moving_r2(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = HOR_SPEED_TILT2 * vel
     vert_speed = VERT_SPEED_TILT2 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
 
-def moving_r3(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = HOR_SPEED_TILT3;
+def moving_r3(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = HOR_SPEED_TILT3 * vel
     vert_speed = VERT_SPEED_TILT3 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)
 
-def moving_r4(vel,walls,walls_repeat,WALLS_HEIGHT,bird):
-    hor_speed = HOR_SPEED_TILT4;
+def moving_r4(vel,walls,walls_repeat,WALLS_HEIGHT,bird, obstacles):
+    hor_speed = HOR_SPEED_TILT4 * vel
     vert_speed = VERT_SPEED_TILT4 * vel
     obs_move_up(vert_speed,walls,walls_repeat,WALLS_HEIGHT, obstacles)
     bird_move_hor(hor_speed, bird)

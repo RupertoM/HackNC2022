@@ -11,6 +11,9 @@ from settings import *
 pygame.font.init()
 pygame.mixer.init()
 
+#Game Over Tracker
+game_over = False
+
 
 # Window Properties
 WIN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -56,7 +59,7 @@ def bird_handle_movement(keys_pressed, direction,Score_Obj):
         Score_Obj.increment()
     return direction,Score_Obj
 
-def draw_window(walls,walls_repeat,birdRect, Bird):
+def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
     WIN.fill(WHITE)
     WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
     WIN.blit(BG_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
@@ -88,10 +91,7 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
 
     #collision with wall state
     if birdRect.colliderect(L_side) or birdRect.colliderect(R_side):
-        #pygame.draw.rect(WIN, (100,200,0), L_side)
-        #pygame.draw.rect(WIN, (100,200,0), R_side)
-        print("fail state")
-        pygame.quit()
+        restart_game()
     #else:
         #pygame.draw.rect(WIN, (200,20,0), L_side)
         #pygame.draw.rect(WIN, (200,20,0), R_side)
@@ -101,43 +101,47 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
 
     pygame.display.update()
 
-    def restart_game():
-        global game_over
-        game_over = True
-        endgame_font = pygame.font.SysFont("arial", 60)
-        restart_font = pygame.font.SysFont("arial", 20)
-        #pygame.draw.rect(WIN, (100,200,0), L_side)
-        #pygame.draw.rect(WIN, (100,200,0), R_side)
-        GAME_OVER_TEXT = endgame_font.render("GAME OVER", True, BLACK, None)
-        WIN.blit(GAME_OVER_TEXT, (WINDOW_WIDTH/2 - 170, WINDOW_HEIGHT/4))
-        RESTART_TEXT = restart_font.render("PRESS SPACE TO TRY AGAIN", True, BLACK, None)
-        WIN.blit(RESTART_TEXT, (WINDOW_WIDTH/2 - 130, WINDOW_HEIGHT/2))
+def restart_game():
+    global game_over
+    game_over = True
+    endgame_font = pygame.font.SysFont("arial", 60)
+    restart_font = pygame.font.SysFont("arial", 20)
+    #pygame.draw.rect(WIN, (100,200,0), L_side)
+    #pygame.draw.rect(WIN, (100,200,0), R_side)
+    GAME_OVER_TEXT = endgame_font.render("GAME OVER", True, BLACK, None)
+    WIN.blit(GAME_OVER_TEXT, (WINDOW_WIDTH/2 - 170, WINDOW_HEIGHT/4))
+    RESTART_TEXT = restart_font.render("PRESS SPACE TO TRY AGAIN", True, BLACK, None)
+    WIN.blit(RESTART_TEXT, (WINDOW_WIDTH/2 - 130, WINDOW_HEIGHT/2))
 
 
-        pygame.display.update()
+    pygame.display.update()
 
-        stop_game()
+    stop_game()
 
 
-    def unstop_game():
-        global game_over
-        game_over = False
+def unstop_game():
+    global game_over
+    game_over = False
 
-    def stop_game():
-        global game_over
-        while  game_over == True:
-                for event in pygame.event.get():
-                #print(event)
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        quit()
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_SPACE:
-                            unstop_game()
-                            main()
+def stop_game():
+    global game_over
+    while  game_over == True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    unstop_game()
+                    main()
 
 def main():
     global direction
+
+    obstacles = []
+
+    obstacles = Wall.generate_walls(obstacles)
+
     walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, TRUE_WIDTH, TRUE_HEIGHT)
     walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , TRUE_WIDTH, TRUE_HEIGHT)
     
@@ -158,11 +162,14 @@ def main():
         
 
         keys_pressed = pygame.key.get_pressed()
+
+        direction, Score_Obj = bird_handle_movement(keys_pressed, direction,Score_Obj)
+        if (Score_Obj.get_score() > 20):
+            v_vel = Score_Obj.get_score() / 20
+
+        tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT, birdRect, obstacles)
         
-        direction = bird_handle_movement(keys_pressed, direction)
-        tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT,birdRect)
-        
-        draw_window(walls,walls_repeat,birdRect,BirdC)
+        draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj, obstacles)
         
 
     pygame.quit()
