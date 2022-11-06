@@ -64,7 +64,7 @@ def bird_handle_movement(keys_pressed, direction,Score_Obj):
         direction -= 1
     elif keys_pressed[pygame.K_RIGHT] and direction < 4: # RIGHT
         direction += 1
-    elif keys_pressed[pygame.K_SPACE]:
+    elif keys_pressed[pygame.K_UP]:
         Score_Obj.increment()
     return direction,Score_Obj
 
@@ -166,6 +166,7 @@ def main():
     global direction
 
     obstacles = []
+    i = 0
 
     obstacles = Wall.generate_walls(obstacles)
 
@@ -195,6 +196,13 @@ def main():
         v_vel = 1 + Score_Obj.get_score() / 20
         highscore.set_highscore(Score_Obj.get_score())
         tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT, birdRect, obstacles)
+
+        
+        if obstacles[i].y < 140:
+            i += 1
+            Score_Obj.increment()
+
+        print(obstacles[i].y)
         
         draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj, obstacles)
         
