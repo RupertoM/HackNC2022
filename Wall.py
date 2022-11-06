@@ -14,12 +14,6 @@ def generate_walls(obs): #method for generating obstacles
     local = 590
 
     while i < 30:
-        randy1 = random.randint(50, 300)
-        randy2 = random.randint(50, 300)
-
-        rand1 = random.randint(50, 300)
-        rand2 = random.randint(50, 300)
-
         obstacle = pygame.Rect(0,local + 590,300,5)
         obstacle2 = pygame.Rect(300,local + 780,300,5)
 
