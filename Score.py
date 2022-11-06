@@ -1,15 +1,28 @@
-import os
-
 import pygame
 
 from settings import *
 
-# WIN.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))
-# WIN.blit(yellow_health_text, (10, 10))
-
-
-class Score(pygame.sprite.Sprite):
+class Score():
     def __init__(self, color, value):
         self.score = value
         SCORE_FONT = pygame.font.SysFont('comicsans', 40)
-        self.score_sprite = SCORE_FONT.render(str(self.score), 1, color)
+        self.score_sprite = SCORE_FONT.render(three_digit(self.score), 1, color)
+
+    def increment(self):
+        self.score += 1
+        SCORE_FONT = pygame.font.SysFont('comicsans', 40)
+        self.score_sprite = SCORE_FONT.render(three_digit(self.score), 1, (0,0,0))
+    def get_score(self):
+        return self.score
+
+
+def three_digit(number):
+    
+    if len(str(number)) == 1:
+        return "00" + str(number)
+    
+    elif len(str(number)) == 2:
+        return "0" + str(number)
+    
+    else:
+        return str(number)

@@ -27,7 +27,7 @@ YELLOW = (255, 255, 0)
 
 # Assets ------------------
 # Score
-Score_Obj = Score(BLACK, 100)
+score_val = 0
 
 # Wall Sprite Properties
 WALLS_INITIAL_X, WALLS_INITIAL_Y = 0,0
@@ -46,14 +46,16 @@ BG_WALL_REPEAT = pygame.transform.rotate(pygame.transform.scale(BG_IMAGE, (TRUE_
 L_side = pygame.Rect(0, 0, 1, WINDOW_HEIGHT)
 R_side = pygame.Rect(WINDOW_WIDTH - 1,0,1,WINDOW_HEIGHT)
 
-def bird_handle_movement(keys_pressed, direction):
+def bird_handle_movement(keys_pressed, direction,Score_Obj):
     if keys_pressed[pygame.K_LEFT] and direction > -4:  # LEFT
         direction -= 1
     elif keys_pressed[pygame.K_RIGHT] and direction < 4: # RIGHT
         direction += 1
-    return direction
+    elif keys_pressed[pygame.K_SPACE]:
+        Score_Obj.increment()
+    return direction,Score_Obj
 
-def draw_window(walls,walls_repeat,birdRect, Bird):
+def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj):
     WIN.fill(WHITE)
     WIN.blit(BG_WALL,(WALLS_INITIAL_X,walls.y))  #x,y
     WIN.blit(BG_WALL_REPEAT,(WALLS_INITIAL_X,walls_repeat.y))
@@ -88,12 +90,13 @@ def draw_window(walls,walls_repeat,birdRect, Bird):
         #pygame.draw.rect(WIN, (200,20,0), R_side)
 
     #Score Render
-    WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2,15))
+    WIN.blit(Score_Obj.score_sprite,(WINDOW_WIDTH/2 - 35,15))
 
     pygame.display.update()
 
 def main():
     global direction
+
     walls = pygame.Rect(WALLS_INITIAL_X, WALLS_INITIAL_Y, TRUE_WIDTH, TRUE_HEIGHT)
     walls_repeat = pygame.Rect(WALLS_INITIAL_X, WALLS_REPEAT_INITIAL_Y , TRUE_WIDTH, TRUE_HEIGHT)
     
@@ -102,7 +105,8 @@ def main():
     birdRect = pygame.Rect(BirdC.x, BirdC.y, BirdC.width, BirdC.height)
 
     v_vel = STARTING_VARY_VELOCITY
-    
+    Score_Obj = Score(BLACK, score_val)
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -110,13 +114,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-                
-        keys_pressed = pygame.key.get_pressed()
         
-        direction = bird_handle_movement(keys_pressed, direction)
+
+        keys_pressed = pygame.key.get_pressed()
+
+        direction, Score_Obj = bird_handle_movement(keys_pressed, direction,Score_Obj)
+        if (Score_Obj.get_score() > 20):
+            v_vel = Score_Obj.get_score() / 20
+
         tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT,birdRect)
         
-        draw_window(walls,walls_repeat,birdRect,BirdC)
+        draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj)
         
 
     pygame.quit()
