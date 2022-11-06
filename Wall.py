@@ -1,5 +1,6 @@
 import os
 from random import choice, randint
+import random
 
 import pygame
 
@@ -12,23 +13,20 @@ def generate_walls(obs): #method for generating obstacles
     i = 0
     local = 590
 
-    while i < 20:
-        obstacle = pygame.Rect(0,local + 590,300,25)
-        obstacle2 = pygame.Rect(300,local + 780,300,20)
+    while i < 30:
+        randy1 = random.randint(50, 300)
+        randy2 = random.randint(50, 300)
+
+        rand1 = random.randint(50, 300)
+        rand2 = random.randint(50, 300)
+
+        obstacle = pygame.Rect(0,local + 590,300,5)
+        obstacle2 = pygame.Rect(300,local + 780,300,5)
 
         obs.append(obstacle)
         obs.append(obstacle2)
 
-        local += 400
+        local += 350
         i += 1
 
     return obs
-    
-"""
-class Wall(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        self.width = 80
-        self.height = 80
-        self.x = x #BIRD_INITIAL_X
-        self.y = y #BIRD_INITIAL_Y
-"""
