@@ -64,8 +64,6 @@ def bird_handle_movement(keys_pressed, direction,Score_Obj):
         direction -= 1
     elif keys_pressed[pygame.K_RIGHT] and direction < 4: # RIGHT
         direction += 1
-    elif keys_pressed[pygame.K_UP]:
-        Score_Obj.increment()
     return direction,Score_Obj
 
 def draw_window(walls,walls_repeat,birdRect, Bird, Score_Obj, obs):
@@ -201,8 +199,6 @@ def main():
         if obstacles[i].y < 140:
             i += 1
             Score_Obj.increment()
-
-        print(obstacles[i].y)
         
         draw_window(walls,walls_repeat,birdRect,BirdC, Score_Obj, obstacles)
         
