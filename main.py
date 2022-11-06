@@ -24,7 +24,7 @@ game_over = False
 
 # Window Properties
 WIN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Learn to Fly!")
+pygame.display.set_caption("Learn to Fly")
 
 # Movement Properties
 STARTING_VARY_VELOCITY = 1
