@@ -1,16 +1,14 @@
+import csv
 import os
 
 import pygame
 
+import highscore
 import tilt
 import Wall
-import highscore
 from Bird import Bird
 from Score import Score
 from settings import *
-import csv
-
-
 
 pygame.font.init()
 pygame.mixer.init()
