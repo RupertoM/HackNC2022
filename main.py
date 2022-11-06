@@ -181,8 +181,7 @@ def main():
         keys_pressed = pygame.key.get_pressed()
 
         direction, Score_Obj = bird_handle_movement(keys_pressed, direction,Score_Obj)
-        if (Score_Obj.get_score() > 20):
-            v_vel = Score_Obj.get_score() / 20
+        v_vel = 1 + Score_Obj.get_score() / 20
 
         tilt.moving(direction,v_vel,walls,walls_repeat,TRUE_HEIGHT, birdRect, obstacles)
         
