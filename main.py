@@ -11,6 +11,9 @@ from settings import *
 pygame.font.init()
 pygame.mixer.init()
 
+pygame.mixer.music.load(os.path.join('assets', 'music.mp3'))
+pygame.mixer.music.play(-1)
+
 #Game Over Tracker
 game_over = False
 
