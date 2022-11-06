@@ -23,6 +23,8 @@ pygame.mixer.music.play(-1)
 #Game Over Tracker
 game_over = False
 
+#Title Scene Tracker
+title_run = False
 
 # Window Properties
 WIN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -155,11 +157,14 @@ def restart_game(scoreObj):
 
 def unstop_game():
     global game_over
+    global title_run
     game_over = False
+    title_run = True
 
 def stop_game():
     global game_over
-    while  game_over == True:
+    global title_run
+    while  game_over == True or title_run == False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -169,7 +174,28 @@ def stop_game():
                     unstop_game()
                     main()
 
+def intro():
+    BT_IMAGE = pygame.image.load(os.path.join('assets', 'Bird_Tilt_3.png'))
+    HEIGHT_SF = WINDOW_HEIGHT / (BT_IMAGE.get_height())
+    WIDTH_SF = WINDOW_WIDTH / (BT_IMAGE.get_width())
+    TRUE_HEIGHT = BT_IMAGE.get_height() * (HEIGHT_SF)
+    TRUE_WIDTH = BT_IMAGE.get_width() * WIDTH_SF
+    WIN.fill(WHITE)
+    BT_WALL = pygame.transform.rotate(pygame.transform.scale(BT_IMAGE, (TRUE_WIDTH, TRUE_HEIGHT)), 0)
+    WIN.blit(BT_WALL,(WALLS_INITIAL_X,WALLS_INITIAL_Y))
+
+    intro_font = pygame.font.SysFont("impact", 20)
+    INTRO_TEXT = intro_font.render("ONCE THERE WAS AN EGG... *press space*", True, BLACK, None)
+    WIN.blit(INTRO_TEXT, (WINDOW_WIDTH/2 - 150, WINDOW_HEIGHT-50))
+
+    pygame.display.update()
+    stop_game()
+
 def main():
+    global title_run
+    if title_run == False:
+       intro()
+
     global direction
 
     obstacles = []
